@@ -55,7 +55,29 @@ public class ProductRepository {
         return new ArrayList<>();
     }
 
-
-
+    public boolean addProduct(Product product) {
+        try {
+            sqlConnection();
+            String sql = "INSERT INTO products ( name, description, price, category, imageUrl) VALUES (?,?,?,?,?)";
+            PreparedStatement statement = _connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getDescription());
+            statement.setBigDecimal(3, product.getPrice());
+            statement.setString(4, product.getCategory());
+            statement.setString(5, product.getImageUrl());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                // įterptos eilutės ID
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+        }
+        return false;
+    }
 
 }

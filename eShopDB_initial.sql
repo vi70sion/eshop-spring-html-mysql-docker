@@ -32,7 +32,7 @@ CREATE TABLE `products` (
   `category` varchar(45) DEFAULT NULL,
   `imageUrl` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'BARBIE madistė vaivorykštės spalvų suknele, HBV22','Spalvingi drabužiai ir jų deriniai. Lėlės viena nuo kitos skiriasi ne tik drabužiais, bet ir odos, akių bei plaukų spalvomis, veido formomis.',17.99,'Lėlės','https://i.ibb.co/WNrsnhb/Lele-barbe01.jpg'),(2,'LEGO® NINJAGO® Zeino ledo motociklas','Žaislinis LEGO® NINJAGO® Zeino ledo motociklas (71816) suteikia galimybę berniukams ir mergaitėms nuo 7 metų atkurti pašėlusį veiksmą iš 2-ojo TV serialo NINJAGO Dragons Rising sezono. Vaikams skirtą nindzių žaislą sudaro riedantis NINJAGO motociklas su judančiais aukso spalvos ašmenimis ir pakaba ant galinės padangos. Vaikams spustelėjus padangą, abejose pusėse išsiskleidžia šaunūs puolimo režimo ledo ašmenys.',10.90,'Konstruktoriai','https://i.ibb.co/4MY5chx/Ledo-motociklas01.png');
+INSERT INTO `products` VALUES (1,'BARBIE madistė vaivorykštės spalvų suknele, HBV22','Spalvingi drabužiai ir jų deriniai. Lėlės viena nuo kitos skiriasi ne tik drabužiais, bet ir odos, akių bei plaukų spalvomis, veido formomis.',17.99,'Lėlės','https://i.ibb.co/WNrsnhb/Lele-barbe01.jpg'),(2,'LEGO® NINJAGO® Zeino ledo motociklas','Žaislinis LEGO® NINJAGO® Zeino ledo motociklas (71816) suteikia galimybę berniukams ir mergaitėms nuo 7 metų atkurti pašėlusį veiksmą iš 2-ojo TV serialo NINJAGO Dragons Rising sezono. Vaikams skirtą nindzių žaislą sudaro riedantis NINJAGO motociklas su judančiais aukso spalvos ašmenimis ir pakaba ant galinės padangos. Vaikams spustelėjus padangą, abejose pusėse išsiskleidžia šaunūs puolimo režimo ledo ašmenys.',10.90,'Konstruktoriai','https://i.ibb.co/4MY5chx/Ledo-motociklas01.png'),(3,'Žaislinis automobilis monstras bulius vaikams','Žaislinis automobilis Monster Trucks Bulls - tai raudonas automobilis su ragais, skirta kiekvieno vaiko linksmybėms. Dideli pilki ratai daro įspūdį, o spalvos ir dydis yra tinkami mažoms vaiko rankoms. Žaislinis automobilis veikia įtempimo būdu, tereikia ištempti galinius ratus, pastatyti ant lygaus paviršiaus ir automobilis pajudės į priekį.',12.76,'Transporto priemonės','https://i.ibb.co/n1V5V7k/zaliasis-monstras01.jpg');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-12 21:29:27
+-- Dump completed on 2024-08-13 20:59:04

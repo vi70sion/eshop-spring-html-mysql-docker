@@ -18,6 +18,10 @@ public class ProductService {
         return prRepository.getAllProductsList();
     }
 
+    public boolean addProduct(Product product) {
+        return prRepository.addProduct(product);
+    }
+
 
 
 
