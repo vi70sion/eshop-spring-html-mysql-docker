@@ -28,18 +28,22 @@ public class ProductController {
     @PostMapping("/products/add")
     public ResponseEntity<String> addProduct(@RequestBody Product product,
                                              @RequestHeader("Authorization") String authorizationHeader ) {
-        if(!UserService.isTokenCorrect(authorizationHeader)) return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body("bad request");
-        if(!UserService.authorize(authorizationHeader)) return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .body("unauthorized");
-        if (productService.addProduct(product)) return ResponseEntity
-                .status(HttpStatus.OK)
-                .body("success");
-        else return ResponseEntity
-                .status(HttpStatus.NOT_ACCEPTABLE)
-                .body("failed");
+        if(!UserService.isTokenCorrect(authorizationHeader))
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("bad request");
+        if(!UserService.authorize(authorizationHeader))
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("unauthorized");
+
+        return  (productService.addProduct(product)) ?
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body("success"):
+                ResponseEntity
+                    .status(HttpStatus.NOT_ACCEPTABLE)
+                    .body("failed");
     }
 
 
