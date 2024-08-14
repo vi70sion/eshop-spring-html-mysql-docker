@@ -4,13 +4,11 @@ import com.example.eshop.JwtDecoder;
 import com.example.eshop.model.Product;
 import com.example.eshop.service.ProductService;
 import com.example.eshop.service.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,10 +16,14 @@ public class ProductController {
     ProductService productService =new ProductService();
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProductsList() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(productService.getAllProductsList());
+    public ResponseEntity<List<Product>> getAllProductsList(@RequestHeader("Authorization") String authorizationHeader) {
+        return UserService.handleAuthorization(authorizationHeader).getBody().equals("authorized") ?
+                ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(productService.getAllProductsList()):
+                ResponseEntity
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .body(new ArrayList<>());
     }
 
     @CrossOrigin

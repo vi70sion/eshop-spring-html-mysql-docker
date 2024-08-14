@@ -4,6 +4,8 @@ import com.example.eshop.JwtDecoder;
 import com.example.eshop.model.User;
 import com.example.eshop.repository.UserRepository;
 import io.jsonwebtoken.JwtException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 public class UserService {
 
@@ -26,4 +28,19 @@ public class UserService {
     public static boolean isTokenCorrect(String authorizationHeader){
         return (authorizationHeader.length() < 20 || authorizationHeader == null || authorizationHeader.isEmpty()) ? false : true;
     }
+
+    public static ResponseEntity<String> handleAuthorization(String authorizationHeader) {
+        if (!isTokenCorrect(authorizationHeader)) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("bad request");
+        }
+        if (!authorize(authorizationHeader)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("unauthorized");
+        }
+        return ResponseEntity.ok("authorized");
+    }
+
 }
