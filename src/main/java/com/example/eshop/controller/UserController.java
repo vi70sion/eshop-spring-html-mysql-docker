@@ -1,4 +1,4 @@
-package com.example.eshop.controller.controller;
+package com.example.eshop.controller;
 
 import com.example.eshop.JwtGenerator;
 import com.example.eshop.model.User;

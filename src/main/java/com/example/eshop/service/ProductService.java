@@ -22,7 +22,13 @@ public class ProductService {
         return prRepository.addProduct(product);
     }
 
+    public boolean updateProduct(Product product) {
+        return prRepository.updateProduct(product);
+    }
 
+    public boolean deleteProductById(long id){
+        return prRepository.deleteProductById(id);
+    }
 
 
 }

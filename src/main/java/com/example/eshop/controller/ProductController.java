@@ -46,5 +46,37 @@ public class ProductController {
                     .body("failed");
     }
 
+    @CrossOrigin
+    @PutMapping("/products/update")
+    public ResponseEntity <String> updateProduct(@RequestBody Product product, @RequestHeader("Authorization") String authorizationHeader) {
+        if(!UserService.isTokenCorrect(authorizationHeader)) return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("bad request");
+        if(!UserService.authorize(authorizationHeader)) return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body("unauthorized");
+        return (!productService.updateProduct(product)) ?
+                new ResponseEntity<>("failed", HttpStatus.BAD_REQUEST) :
+                new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @DeleteMapping("/products/delete/{id}")
+    public ResponseEntity<String> deleteProductById(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader) {
+        if(!UserService.isTokenCorrect(authorizationHeader)) return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("bad request");
+        if(!UserService.authorize(authorizationHeader)) return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body("unauthorized");
+        return (productService.deleteProductById(id)) ?
+                ResponseEntity
+                        .status(HttpStatus.OK)
+                        .body("success") :
+                ResponseEntity
+                        .status(HttpStatus.NOT_ACCEPTABLE)
+                        .body("failed");
+    }
+
 
 }

@@ -80,4 +80,36 @@ public class ProductRepository {
         return false;
     }
 
+    public boolean updateProduct(Product product) {
+        try {
+            sqlConnection();
+            String sql = "UPDATE products SET name = ?, description = ?, price = ?, category = ?, imageUrl = ? WHERE id = ?";
+            PreparedStatement statement = _connection.prepareStatement(sql);
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getDescription());
+            statement.setBigDecimal(3, product.getPrice());
+            statement.setString(4, product.getCategory());
+            statement.setString(5, product.getImageUrl());
+            statement.setLong(6, product.getId());
+            return (statement.executeUpdate() > 0) ? true : false;
+        } catch (SQLException e) {
+            //
+        }
+        return false;
+    }
+
+    public boolean deleteProductById(long id) {
+        try {
+            sqlConnection();
+            String deleteSql = "DELETE FROM products WHERE id = ?";
+            PreparedStatement statement = _connection.prepareStatement(deleteSql);
+            statement.setLong(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            return (rowsDeleted > 0) ? true : false;
+        } catch (SQLException e) {
+            // throw new RuntimeException(e);
+        }
+        return false;
+    }
+
 }
