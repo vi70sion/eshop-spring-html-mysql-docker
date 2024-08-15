@@ -3,7 +3,7 @@ package com.example.eshop.controller;
 
 import com.example.eshop.model.Order;
 import com.example.eshop.service.OrderService;
-import com.example.eshop.service.UserService;
+import com.example.eshop.service.TokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,19 +23,11 @@ public class OrderController {
     @CrossOrigin
     @GetMapping("/orders")
     public ResponseEntity<List<Order>> getAllOrdersList(@RequestHeader("Authorization") String authorizationHeader) {
-        if(!UserService.isTokenCorrect(authorizationHeader))
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(new ArrayList<>());
-        if(!UserService.authorize(authorizationHeader))
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body(new ArrayList<>());
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(orderService.getAllOrdersList());
+        return TokenService.handleAuthorization(authorizationHeader).getBody().equals("authorized") ?
+                ResponseEntity.ok(orderService.getAllOrdersList()):
+                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ArrayList<>());
     }
+
 
 
 }

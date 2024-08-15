@@ -21,8 +21,8 @@ public class UserController {
     public ResponseEntity<String> userLogin(@RequestBody User user) {
         int userId = userService.userLogin(user);
         return (userId == -1) ?
-                new ResponseEntity<>("null", HttpStatus.BAD_REQUEST) :
-                new ResponseEntity<>(JwtGenerator.generateJwt(user.getName(), user.getPassword(), userId), HttpStatus.OK);
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).body("null") :
+                ResponseEntity.ok(JwtGenerator.generateJwt(user.getName(), user.getPassword(), userId));
     }
 
 }
