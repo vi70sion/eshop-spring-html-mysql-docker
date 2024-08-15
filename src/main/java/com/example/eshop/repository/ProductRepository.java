@@ -112,4 +112,27 @@ public class ProductRepository {
         return false;
     }
 
+    public Product getProductById(long id) {
+        try {
+            Product product = new Product();;
+            sqlConnection();
+            prodList = new ArrayList<>();
+            String sql = "SELECT * FROM products WHERE id = ?";
+            PreparedStatement statement = _connection.prepareStatement(sql);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if(!resultSet.next()) return null;
+            product.setId(resultSet.getInt("id"));
+            product.setName(resultSet.getString("name"));
+            product.setDescription(resultSet.getString("description"));
+            product.setPrice(resultSet.getBigDecimal("price"));
+            product.setCategory(resultSet.getString("category"));
+            product.setImageUrl(resultSet.getString("imageUrl"));
+            return product;
+        } catch (SQLException e) {
+            // throw new RuntimeException(e);
+        }
+        return null;
+    }
+
 }

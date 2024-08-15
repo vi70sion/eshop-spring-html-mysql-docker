@@ -30,5 +30,8 @@ public class ProductService {
         return prRepository.deleteProductById(id);
     }
 
+    public Product getProductById(long id){
+        return prRepository.getProductById(id);
+    }
 
 }
