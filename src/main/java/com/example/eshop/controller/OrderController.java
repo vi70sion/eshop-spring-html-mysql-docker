@@ -6,11 +6,9 @@ import com.example.eshop.service.OrderService;
 import com.example.eshop.service.TokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +26,12 @@ public class OrderController {
                 ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ArrayList<>());
     }
 
-
+    @CrossOrigin
+    @GetMapping("/orders/amount/{id}")
+    public ResponseEntity<BigDecimal> orderAmount(@PathVariable long id,@RequestHeader("Authorization") String authorizationHeader) {
+        return TokenService.handleAuthorization(authorizationHeader).getBody().equals("authorized") ?
+                ResponseEntity.ok(orderService.orderAmount(id)):
+                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(BigDecimal.valueOf(-1.00));
+    }
 
 }
