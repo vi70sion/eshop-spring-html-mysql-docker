@@ -1,12 +1,13 @@
 package com.example.eshop.repository;
 
 import com.example.eshop.model.Order;
+import com.example.eshop.model.OrderProduct;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
 import static com.example.eshop.Constants.*;
 
 public class OrderRepository {
@@ -29,31 +30,77 @@ public class OrderRepository {
         }
     }
 
+//    public List<Order> getAllOrdersList() {
+//        try {
+//            Order order;
+//            sqlConnection();
+//            orderList = new ArrayList<>();
+//            String sql = "SELECT * FROM orders";
+//            PreparedStatement statement = _connection.prepareStatement(sql);
+//            ResultSet resultSet = statement.executeQuery();
+//            while (resultSet.next()) {
+//                order = new Order();
+//                HashMap<Integer, Integer> map;
+//                order.setId(resultSet.getInt("id"));
+//                ObjectMapper objectMapper = new ObjectMapper();
+//                try {
+//                    map = objectMapper.readValue(resultSet.getString("products"), new TypeReference<HashMap<Integer, Integer>>(){});
+//                } catch (Exception e) {
+//                    map = new HashMap<>();
+//                }
+//                order.setProducts(map);
+//                order.setTotalPrice(resultSet.getBigDecimal("total_price"));
+//                order.setCustomerName(resultSet.getString("customer_name"));
+//                order.setCustomerAddress(resultSet.getString("customer_address"));
+//                order.setCustomerEmail(resultSet.getString("customer_email"));
+//                order.setPaymentStatus(resultSet.getBoolean("payment_status"));
+//                orderList.add(order);
+//            }
+//            return orderList;
+//        } catch (SQLException e) {
+//            // throw new RuntimeException(e);
+//        }
+//        return new ArrayList<>();
+//    }
+
     public List<Order> getAllOrdersList() {
         try {
             Order order;
+            List<OrderProduct> orderProductList;
             sqlConnection();
             orderList = new ArrayList<>();
             String sql = "SELECT * FROM orders";
             PreparedStatement statement = _connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                order = new Order();
-                HashMap<Integer, Integer> map;
-                order.setId(resultSet.getInt("id"));
-                ObjectMapper objectMapper = new ObjectMapper();
                 try {
-                    map = objectMapper.readValue(resultSet.getString("products"), new TypeReference<HashMap<Integer, Integer>>(){});
+                    order = new Order();
+                    orderProductList = new ArrayList<>();
+                    order.setId(resultSet.getInt("id"));
+                    String jsonInput = resultSet.getString("products");
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    JsonNode rootNode = objectMapper.readTree(jsonInput);
+                    for (JsonNode node : rootNode) {
+                        Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
+                        while (fields.hasNext()) {
+                            Map.Entry<String, JsonNode> entry = fields.next();
+                            int productId = Integer.parseInt(entry.getKey());  // Get productId
+                            int quantity = entry.getValue().asInt();  // Get quantity
+                            OrderProduct orderProduct = new OrderProduct(productId, quantity);
+                            orderProductList.add(orderProduct);
+                        }
+                    }
+                    order.setProducts(orderProductList);
+                    order.setTotalPrice(resultSet.getBigDecimal("total_price"));
+                    order.setCustomerName(resultSet.getString("customer_name"));
+                    order.setCustomerAddress(resultSet.getString("customer_address"));
+                    order.setCustomerEmail(resultSet.getString("customer_email"));
+                    order.setPaymentStatus(resultSet.getBoolean("payment_status"));
+                    orderList.add(order);
                 } catch (Exception e) {
-                    map = new HashMap<>();
+                    //klaida konvertuojant json objektus i lista
+                    return new ArrayList<>();
                 }
-                order.setProducts(map);
-                order.setTotalPrice(resultSet.getBigDecimal("total_price"));
-                order.setCustomerName(resultSet.getString("customer_name"));
-                order.setCustomerAddress(resultSet.getString("customer_address"));
-                order.setCustomerEmail(resultSet.getString("customer_email"));
-                order.setPaymentStatus(resultSet.getBoolean("payment_status"));
-                orderList.add(order);
             }
             return orderList;
         } catch (SQLException e) {
@@ -61,8 +108,6 @@ public class OrderRepository {
         }
         return new ArrayList<>();
     }
-
-
 
 
 
