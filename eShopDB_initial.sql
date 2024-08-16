@@ -67,7 +67,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'{\"2\": 1, \"3\": 1}',23.66,'Jurgis','Kaunas','jurgis@gmail.com',1),(2,'{\"1\": 2, \"2\": 1}',46.88,'Antanas','Jonava','antanas@outlook.com',1);
+INSERT INTO `orders` VALUES (1,'[{\"2\": 1}, {\"3\": 1}]',23.66,'Jurgis','Kaunas','jurgis@gmail.com',1),(2,'[{\"1\": 2}, {\"2\": 1}]',46.88,'Antanas','Jonava','antanas@outlook.com',1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-15  0:07:56
+-- Dump completed on 2024-08-16 19:30:04
