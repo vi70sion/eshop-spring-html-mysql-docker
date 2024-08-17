@@ -11,8 +11,12 @@ public class OrderService {
     OrderRepository ordRepository = new OrderRepository();
     public OrderService() { }
 
-    public List<Order> getAllOrdersList() {
-        return ordRepository.getAllOrdersList();
+    public List<Order> getAllOrders() {
+        return ordRepository.findAllOrders();
+    }
+
+    public List<Order> getOrdersByPaymentStatus(String paymentStatus) {
+        return ordRepository.findOrdersByPaymentStatus(paymentStatus);
     }
 
     public BigDecimal orderAmount(long id) {
