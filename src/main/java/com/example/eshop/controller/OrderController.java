@@ -18,7 +18,7 @@ public class OrderController {
 
     OrderService orderService = new OrderService();
 
-    // Get all orders or filter by payment status (paid/unpaid)
+    // get all orders or filter by payment status (paid/unpaid)
     @CrossOrigin
     @GetMapping("/orders")
     public List<Order> getOrders(@RequestParam(value = "paymentStatus", required = false) String paymentStatus,
@@ -35,11 +35,11 @@ public class OrderController {
             // Return only unpaid orders
             return orderService.getOrdersByPaymentStatus("unpaid");
         } else {
-            // Handle invalid status (optional)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid payment status");
         }
     }
 
+    // get order amount by order id
     @CrossOrigin
     @GetMapping("/orders/amount/{id}")
     public ResponseEntity<BigDecimal> orderAmount(@PathVariable long id,@RequestHeader("Authorization") String authorizationHeader) {

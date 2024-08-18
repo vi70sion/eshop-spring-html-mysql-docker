@@ -51,9 +51,7 @@ public class ProductController {
 
     @CrossOrigin
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader) {
-        if(!TokenService.handleAuthorization(authorizationHeader).getBody().equals("authorized"))
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Product());
+    public ResponseEntity<Product> getProductById(@PathVariable long id) {
         Product product = productService.getProductById(id);
         return (product == null) ?
                 ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null):

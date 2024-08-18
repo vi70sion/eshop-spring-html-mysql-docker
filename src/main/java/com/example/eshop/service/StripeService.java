@@ -53,7 +53,7 @@ public class StripeService {
                         .setQuantity(1L)
                         .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("eur")
-                                .setUnitAmount(amount.longValue())
+                                .setUnitAmount(amount.multiply(BigDecimal.valueOf(100)).longValue())
                                 .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName("eShop order")
                                         .build())
@@ -65,6 +65,6 @@ public class StripeService {
     }
 
 
-
+        //amount.longValue()
 
 }
