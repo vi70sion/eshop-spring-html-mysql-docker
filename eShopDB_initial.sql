@@ -57,8 +57,9 @@ CREATE TABLE `orders` (
   `customer_address` varchar(45) DEFAULT NULL,
   `customer_email` varchar(45) DEFAULT NULL,
   `payment_status` tinyint(1) DEFAULT NULL,
+  `uuid` binary(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +68,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'[{\"2\": 1}, {\"3\": 1}]',23.66,'Jurgis','Kaunas','jurgis@gmail.com',1),(2,'[{\"1\": 2}, {\"2\": 1}]',46.88,'Antanas','Jonava','antanas@outlook.com',1);
+INSERT INTO `orders` VALUES (1,'[{\"quantity\": 1, \"productId\": 2}, {\"quantity\": 1, \"productId\": 3}]',23.66,'Jurgis','Kaunas','jurgis@gmail.com',1,NULL),(2,'[{\"quantity\": 2, \"productId\": 1}, {\"quantity\": 1, \"productId\": 2}]',46.88,'Antanas','Jonava','antanas@outlook.com',0,NULL),(7,'[{\"quantity\": 3, \"productId\": 1}, {\"quantity\": 1, \"productId\": 2}]',64.87,'Antanas','Jonava','antanas@outlook.com',0,_binary '\"˝g|,KDùÃñ¡§må\Ê');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-16 19:30:04
+-- Dump completed on 2024-08-18 15:29:16
