@@ -18,15 +18,6 @@ public class OrderController {
 
     OrderService orderService = new OrderService();
 
-//    @CrossOrigin
-//    @GetMapping("/orders")
-//    public ResponseEntity<List<Order>> getAllOrdersList(@RequestHeader("Authorization") String authorizationHeader) {
-//        return TokenService.handleAuthorization(authorizationHeader).getBody().equals("authorized") ?
-//                ResponseEntity.ok(orderService.getAllOrdersList()):
-//                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ArrayList<>());
-//    }
-
-
     // Get all orders or filter by payment status (paid/unpaid)
     @CrossOrigin
     @GetMapping("/orders")
@@ -54,8 +45,8 @@ public class OrderController {
     public ResponseEntity<BigDecimal> orderAmount(@PathVariable long id,@RequestHeader("Authorization") String authorizationHeader) {
         return TokenService.handleAuthorization(authorizationHeader).getBody().equals("authorized") ?
                 ResponseEntity.ok(orderService.orderAmount(id)):
-                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(BigDecimal.valueOf(-1.00));
-        //TODO reikia padaryti tikrinimą, jei grąžina -1.00, negrąžinti Http statuso Ok
+                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(BigDecimal.ZERO);
+        //TODO reikia padaryti tikrinimą, jei orderAmount(id) grąžina 0.00, negrąžinti Http statuso Ok
     }
 
 }

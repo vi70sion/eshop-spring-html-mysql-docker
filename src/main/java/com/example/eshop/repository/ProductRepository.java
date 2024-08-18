@@ -2,7 +2,6 @@ package com.example.eshop.repository;
 
 import com.example.eshop.model.Product;
 import static com.example.eshop.Constants.*;
-
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
