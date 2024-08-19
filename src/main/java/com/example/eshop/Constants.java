@@ -1,7 +1,7 @@
 package com.example.eshop;
 
 public class Constants {
-    public final static String URL = "jdbc:mysql://127.0.0.1:3308/eshop";
+    public final static String URL = "jdbc:mysql://http://127.0.0.1:3308/eshop";
     public final static String USERNAME = "root";
     public final static String PASSWORD = "1234";
 
