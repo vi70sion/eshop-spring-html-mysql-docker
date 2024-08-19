@@ -39,8 +39,8 @@ public class StripeController {
     @GetMapping("/redirect")
     public RedirectView redirect(@RequestParam UUID uuid){
         return (orderService.setOrderPaymentStatusTrue(uuid)) ?
-                new RedirectView("http://localhost:8080/index.html"): // status update successful
-                new RedirectView("http://localhost:8080/index.html"); // status update failed
+                new RedirectView("http://host.docker.internal:7777/thanks.html"): // status update successful
+                new RedirectView("http://host.docker.internal:7777/errorPaying.html"); // status update failed
     }
 
 }
