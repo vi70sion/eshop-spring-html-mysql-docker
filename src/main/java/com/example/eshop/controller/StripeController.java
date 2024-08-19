@@ -17,9 +17,8 @@ import java.util.UUID;
 @RestController
 public class StripeController {
 
-    @Autowired
     private StripeService stripeService;
-    @Autowired
+
     private OrderService orderService;
 
     @PostMapping("/create-checkout-session")
