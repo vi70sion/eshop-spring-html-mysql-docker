@@ -5,7 +5,6 @@ import com.example.eshop.service.OrderService;
 import com.example.eshop.service.StripeService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -17,9 +16,9 @@ import java.util.UUID;
 @RestController
 public class StripeController {
 
-    private StripeService stripeService;
+    private StripeService stripeService = new StripeService();
 
-    private OrderService orderService;
+    private OrderService orderService = new OrderService();
 
     @PostMapping("/create-checkout-session")
     public ResponseEntity<Map<String, String>> createCheckoutSession(@RequestBody Order order) {
