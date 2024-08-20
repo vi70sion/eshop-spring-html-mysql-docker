@@ -27,7 +27,7 @@ public class StripeService {
 
     @PostConstruct
     public void init() {
-        Stripe.apiKey = stripeApiKey;
+        Stripe.apiKey = "pk_test_51PlEdJBsNoGKJEE7jvx0qXTpbYBJUgZXBpFflSuL3mRuahlDtMCWVZWmRfwXSd5Nb9VWyVc4uVCB02NNrtAaGJPb00vDUFdR1K";
     }
 
     public PaymentIntent createPaymentIntent(Long amount, String currency) throws StripeException {
