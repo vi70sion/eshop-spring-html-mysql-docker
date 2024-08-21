@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 public class StripeController {
-    @Autowired
+
     private StripeService stripeService = new StripeService();
 
     private OrderService orderService = new OrderService();
