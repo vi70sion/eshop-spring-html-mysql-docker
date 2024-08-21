@@ -5,6 +5,7 @@ import com.example.eshop.service.OrderService;
 import com.example.eshop.service.StripeService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 public class StripeController {
-
+    @Autowired
     private StripeService stripeService = new StripeService();
 
     private OrderService orderService = new OrderService();
@@ -37,8 +38,8 @@ public class StripeController {
     @GetMapping("/redirect")
     public RedirectView redirect(@RequestParam UUID uuid){
         return (orderService.setOrderPaymentStatusTrue(uuid)) ?
-                new RedirectView("http://host.docker.internal:7777/thanks.html"): // status update successful
-                new RedirectView("http://host.docker.internal:7777/errorPaying.html"); // status update failed
+                new RedirectView("http://localhost:7777/thanks.html"): // status update successful
+                new RedirectView("http://localhost:7777/errorPaying.html"); // status update failed
     }
 
 }

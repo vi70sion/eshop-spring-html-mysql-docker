@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-
+@Service
 public class StripeService {
 
-    @Autowired
+
     OrderService orderService = new OrderService();
 
     @Value("${stripe.api.key}")
@@ -27,7 +27,7 @@ public class StripeService {
 
     @PostConstruct
     public void init() {
-        Stripe.apiKey = "pk_test_51PlEdJBsNoGKJEE7jvx0qXTpbYBJUgZXBpFflSuL3mRuahlDtMCWVZWmRfwXSd5Nb9VWyVc4uVCB02NNrtAaGJPb00vDUFdR1K";
+        Stripe.apiKey = stripeApiKey;
     }
 
     public PaymentIntent createPaymentIntent(Long amount, String currency) throws StripeException {
